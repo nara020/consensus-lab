@@ -1,0 +1,121 @@
+import type { ConsensusMode, ConsensusInfo, RegionInfo } from "@/types/consensus";
+
+// ==========================================
+// CONSENSUS MECHANISM INFORMATION
+// ==========================================
+export const CONSENSUS_INFO: Record<ConsensusMode, ConsensusInfo> = {
+  pow: {
+    name: "Proof of Work",
+    chain: "Bitcoin",
+    icon: "₿",
+    subtitle: "Nakamoto Consensus",
+    color: "#f7931a",
+    description: [
+      "⛏️ SHA-256 해시 → Target 이하 찾기",
+      "🌐 네트워크 지연(~10s)으로 Fork 발생",
+      "⚡ Most Accumulated Work 체인 = Main",
+      "💀 Orphan Block → Coinbase TX 무효",
+      "📊 6 confirmations ≈ 0.02% reorg 확률",
+    ],
+  },
+  pos: {
+    name: "Proof of Stake",
+    chain: "Ethereum",
+    icon: "◆",
+    subtitle: "Casper FFG + LMD GHOST",
+    color: "#627eea",
+    description: [
+      "🎰 Stake 비례 확률로 Proposer 선정",
+      "⏱️ 1 Slot = 12s, 1 Epoch = 32 slots",
+      "🗳️ Committee가 Attestation 투표",
+      "✅ 2/3+ 투표 → Justified → Finalized",
+      "🔒 Revert 시 1/3 stake Slashing ($26B+)",
+    ],
+  },
+  raft: {
+    name: "RAFT Consensus",
+    chain: "Hyperledger Fabric",
+    icon: "🔷",
+    subtitle: "CFT (Crash Fault Tolerant)",
+    color: "#2c9ed4",
+    description: [
+      "👑 Leader Election (Term 기반)",
+      "📝 Log Entry Append → Follower 복제",
+      "✅ 과반수(>50%) ACK → Committed",
+      "💓 Heartbeat 150ms로 Leader 확인",
+      "⚠️ Byzantine(악의적) 노드 불허",
+    ],
+  },
+  qbft: {
+    name: "IBFT 2.0",
+    chain: "Hyperledger Besu",
+    icon: "🛡️",
+    subtitle: "BFT (Byzantine Fault Tolerant)",
+    color: "#3c3c3d",
+    description: [
+      "🔄 PRE-PREPARE → PREPARE → COMMIT",
+      "📐 N ≥ 3f+1, Quorum = 2f+1",
+      "🛡️ 33% Byzantine 노드까지 허용",
+      "⚡ Commit 즉시 Finality (No Fork)",
+      "🔁 Round-Robin Proposer 로테이션",
+    ],
+  },
+};
+
+// ==========================================
+// POW REGIONS (Mining Pools)
+// ==========================================
+export const REGIONS: RegionInfo[] = [
+  { name: "🌎 North America", color: "#22c55e", yOffset: 1.8 },
+  { name: "🌍 Europe", color: "#3b82f6", yOffset: 0 },
+  { name: "🌏 Asia", color: "#f59e0b", yOffset: -1.8 },
+];
+
+// ==========================================
+// BLOCK STATUS COLORS
+// ==========================================
+export const BLOCK_STATUS_COLORS: Record<string, string> = {
+  mining: "#fbbf24",
+  mined: "#6b7280",
+  confirmed: "#22d3ee",
+  finalized: "#a855f7",
+  orphaned: "#ef4444",
+  proposed: "#3b82f6",
+  justified: "#8b5cf6",
+  committed: "#22c55e",
+};
+
+// ==========================================
+// VALIDATOR ROLE COLORS
+// ==========================================
+export const ROLE_COLORS: Record<string, string> = {
+  leader: "#f7931a",
+  proposer: "#627eea",
+  follower: "#2c9ed4",
+  validator: "#8b5cf6",
+  miner: "#f7931a",
+};
+
+// ==========================================
+// VOTE TYPE COLORS
+// ==========================================
+export const VOTE_COLORS: Record<string, string | null> = {
+  none: null,
+  prepare: "#3b82f6",
+  commit: "#22c55e",
+  attest: "#8b5cf6",
+};
+
+// ==========================================
+// SIMULATION CONSTANTS
+// ==========================================
+export const SIMULATION_INTERVAL_MS = 350;
+export const QBFT_INTERVAL_MS = 400;
+export const COMPLETE_DELAY_MS = 2500;
+
+// ==========================================
+// POS CONSTANTS
+// ==========================================
+export const DEFAULT_STAKES = [32, 64, 48, 96];
+export const SLOTS_PER_EPOCH = 32;
+export const SLOT_DURATION_SECONDS = 12;
