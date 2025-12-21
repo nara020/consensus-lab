@@ -49,7 +49,7 @@ function PoWSceneComponent({
       <Stars radius={80} depth={50} count={1000} factor={3} fade speed={0.3} />
 
       {/* Title */}
-      <Text position={[2, 4, 0]} fontSize={0.4} color="#f7931a" anchorX="center" font="/fonts/Inter-Bold.woff">
+      <Text position={[2, 4, 0]} fontSize={0.4} color="#f7931a" anchorX="center">
         ₿ BITCOIN - Proof of Work
       </Text>
 
