@@ -382,7 +382,7 @@ Consensus Process:
 - **Code Splitting**: Dynamic imports for 3D components
 - **React.memo**: Prevent unnecessary re-renders
 - **WebGL Context Management**: Proper cleanup and error handling
-- **Font Optimization**: Self-hosted Inter font
+- **Font Optimization**: System font stack with drei defaults
 - **Image Optimization**: Next.js Image component
 
 ---
