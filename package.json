@@ -1,6 +1,26 @@
 {
   "name": "consensus-lab",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Interactive 3D blockchain consensus mechanism visualizer",
+  "author": "Jinhyeok Kim <nara020@github.com> (https://github.com/nara020)",
+  "license": "MIT",
+  "homepage": "https://consensus-lab.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nara020/consensus-lab.git"
+  },
+  "keywords": [
+    "blockchain",
+    "consensus",
+    "visualization",
+    "proof-of-work",
+    "proof-of-stake",
+    "raft",
+    "ibft",
+    "three.js",
+    "react",
+    "nextjs"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
