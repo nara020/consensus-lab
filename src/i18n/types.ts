@@ -25,6 +25,24 @@ export interface ConsensusTranslations {
     subtitle: string;
     descriptions: string[];
   };
+  optimistic: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
+  zk: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
+  ripple: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
 }
 
 export interface UITranslations {
@@ -52,6 +70,20 @@ export interface UITranslations {
   instantFinality: string;
   neverReverted: string;
   noForkPossible: string;
+  // Category tabs
+  layer1: string;
+  layer2: string;
+  alternative: string;
+  // Layer 2 specific
+  challengePeriod: string;
+  daysRemaining: string;
+  fraudProof: string;
+  proofProgress: string;
+  batchSize: string;
+  // Ripple specific
+  agreement: string;
+  round: string;
+  unlNodes: string;
 }
 
 export interface StepTranslations {
@@ -108,6 +140,26 @@ export interface StepTranslations {
     blockFinalized: string;
     proposerRotation: string;
   };
+  optimistic: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+    step5: string;
+  };
+  zk: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+    step5: string;
+  };
+  ripple: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+  };
 }
 
 export interface NetworkStatsTranslations {
@@ -143,6 +195,30 @@ export interface NetworkStatsTranslations {
     bftVsCft: string;
     ibftTolerance: string;
     raftTolerance: string;
+  };
+  optimistic: {
+    layer2Scaling: string;
+    tpsBlockFinality: string;
+    fraudProofBased: string;
+    challengePeriodInfo: string;
+    anyoneCanChallenge: string;
+    gasEfficiency: string;
+  };
+  zk: {
+    layer2Scaling: string;
+    tpsBlockFinality: string;
+    validityProof: string;
+    noChallengePeriod: string;
+    instantFinality: string;
+    gasEfficiency: string;
+  };
+  ripple: {
+    xrpLedger: string;
+    tpsBlockFinality: string;
+    unlConsensus: string;
+    agreementThreshold: string;
+    noMining: string;
+    federatedBft: string;
   };
 }
 

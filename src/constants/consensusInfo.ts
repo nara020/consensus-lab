@@ -1,4 +1,23 @@
-import type { ConsensusMode, ConsensusInfo, RegionInfo } from "@/types/consensus";
+import type { ConsensusMode, ConsensusInfo, RegionInfo, ConsensusCategory } from "@/types/consensus";
+
+// ==========================================
+// CONSENSUS MODE CATEGORIES
+// ==========================================
+export const MODE_CATEGORIES: Record<ConsensusMode, ConsensusCategory> = {
+  pow: "layer1",
+  pos: "layer1",
+  raft: "layer1",
+  qbft: "layer1",
+  optimistic: "layer2",
+  zk: "layer2",
+  ripple: "alternative",
+};
+
+export const CATEGORY_INFO: Record<ConsensusCategory, { name: string; color: string }> = {
+  layer1: { name: "Layer 1", color: "#22c55e" },
+  layer2: { name: "Layer 2", color: "#f97316" },
+  alternative: { name: "Alternative", color: "#8b5cf6" },
+};
 
 // ==========================================
 // CONSENSUS MECHANISM INFORMATION
@@ -60,6 +79,54 @@ export const CONSENSUS_INFO: Record<ConsensusMode, ConsensusInfo> = {
       "🔁 Round-Robin Proposer 로테이션",
     ],
   },
+  // ==========================================
+  // LAYER 2 SOLUTIONS
+  // ==========================================
+  optimistic: {
+    name: "Optimistic Rollup",
+    chain: "Arbitrum/Optimism",
+    icon: "🔴",
+    subtitle: "Fraud Proof Based",
+    color: "#ff0420",
+    description: [
+      "📦 L2에서 TX 배치(Batch) 처리",
+      "📤 State Root를 L1에 제출",
+      "⏳ 7일 Challenge Period (Fraud Proof)",
+      "🚨 잘못된 상태 → 누구나 챌린지 가능",
+      "✅ 챌린지 없으면 Finalized",
+    ],
+  },
+  zk: {
+    name: "ZK Rollup",
+    chain: "zkSync/StarkNet",
+    icon: "🟣",
+    subtitle: "Validity Proof Based",
+    color: "#8b5cf6",
+    description: [
+      "📦 L2에서 TX 배치 처리",
+      "🔐 ZK-SNARK/STARK 증명 생성",
+      "📤 증명 + State Root를 L1에 제출",
+      "✅ 수학적 검증 → 즉시 Finality",
+      "⚡ Fraud Proof 대기 불필요",
+    ],
+  },
+  // ==========================================
+  // ALTERNATIVE CONSENSUS
+  // ==========================================
+  ripple: {
+    name: "Ripple Protocol",
+    chain: "XRP Ledger",
+    icon: "💧",
+    subtitle: "RPCA (Federated BFT)",
+    color: "#23292f",
+    description: [
+      "📋 UNL (Unique Node List) 기반",
+      "🗳️ 각 노드가 신뢰 목록 유지",
+      "✅ 80%+ 합의 → 블록 확정",
+      "⚡ 3-5초 내 Finality",
+      "🏦 은행/결제 네트워크 최적화",
+    ],
+  },
 };
 
 // ==========================================
@@ -83,6 +150,12 @@ export const BLOCK_STATUS_COLORS: Record<string, string> = {
   proposed: "#3b82f6",
   justified: "#8b5cf6",
   committed: "#22c55e",
+  // Layer 2 statuses
+  batched: "#f97316",
+  submitted: "#3b82f6",
+  challenged: "#ef4444",
+  proven: "#8b5cf6",
+  validated: "#22c55e",
 };
 
 // ==========================================
@@ -94,6 +167,10 @@ export const ROLE_COLORS: Record<string, string> = {
   follower: "#2c9ed4",
   validator: "#8b5cf6",
   miner: "#f7931a",
+  // Layer 2 & Alternative roles
+  sequencer: "#ff0420",
+  prover: "#8b5cf6",
+  unlNode: "#23292f",
 };
 
 // ==========================================

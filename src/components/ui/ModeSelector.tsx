@@ -1,8 +1,8 @@
 "use client";
 
-import { memo, useCallback } from "react";
-import type { ConsensusMode } from "@/types/consensus";
-import { CONSENSUS_INFO } from "@/constants/consensusInfo";
+import { memo, useCallback, useState } from "react";
+import type { ConsensusMode, ConsensusCategory } from "@/types/consensus";
+import { CONSENSUS_INFO, MODE_CATEGORIES, CATEGORY_INFO } from "@/constants/consensusInfo";
 
 // ==========================================
 // PROPS
@@ -16,7 +16,13 @@ interface ModeSelectorProps {
 // ==========================================
 // CONSTANTS
 // ==========================================
-const MODES: ConsensusMode[] = ["pow", "pos", "raft", "qbft"];
+const CATEGORIES: ConsensusCategory[] = ["layer1", "layer2", "alternative"];
+
+const MODES_BY_CATEGORY: Record<ConsensusCategory, ConsensusMode[]> = {
+  layer1: ["pow", "pos", "raft", "qbft"],
+  layer2: ["optimistic", "zk"],
+  alternative: ["ripple"],
+};
 
 // ==========================================
 // COMPONENT
@@ -26,28 +32,67 @@ function ModeSelectorComponent({
   onModeChange,
   disabled,
 }: ModeSelectorProps) {
-  const handleClick = useCallback(
+  const [activeCategory, setActiveCategory] = useState<ConsensusCategory>(
+    MODE_CATEGORIES[mode]
+  );
+
+  const handleCategoryClick = useCallback((category: ConsensusCategory) => {
+    setActiveCategory(category);
+  }, []);
+
+  const handleModeClick = useCallback(
     (m: ConsensusMode) => {
       if (!disabled) {
         onModeChange(m);
+        setActiveCategory(MODE_CATEGORIES[m]);
       }
     },
     [disabled, onModeChange]
   );
 
+  const currentModes = MODES_BY_CATEGORY[activeCategory];
+
   return (
-    <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[100]">
+    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[100]">
+      {/* Category Tabs */}
+      <div className="flex justify-center gap-1 mb-2">
+        {CATEGORIES.map((category) => {
+          const categoryInfo = CATEGORY_INFO[category];
+          const isActive = activeCategory === category;
+          const hasActiveMode = MODES_BY_CATEGORY[category].includes(mode);
+
+          return (
+            <button
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${
+                isActive
+                  ? "bg-white/10 border border-white/30"
+                  : "border border-transparent hover:bg-white/5"
+              }`}
+              style={{
+                color: hasActiveMode ? categoryInfo.color : isActive ? categoryInfo.color : "#6b7280",
+              }}
+            >
+              {categoryInfo.name}
+              {hasActiveMode && !isActive && " •"}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Mode Buttons */}
       <div className="flex gap-1 bg-black/90 backdrop-blur-md border border-gray-700 rounded-xl p-1.5">
-        {MODES.map((m) => {
+        {currentModes.map((m) => {
           const info = CONSENSUS_INFO[m];
           const isActive = mode === m;
 
           return (
             <button
               key={m}
-              onClick={() => handleClick(m)}
+              onClick={() => handleModeClick(m)}
               disabled={disabled}
-              className={`px-4 py-2.5 rounded-lg font-mono text-xs transition-all ${
+              className={`px-3 py-2 rounded-lg font-mono text-xs transition-all ${
                 isActive
                   ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50"
                   : "border border-transparent hover:bg-gray-800/50"
@@ -56,10 +101,10 @@ function ModeSelectorComponent({
               aria-pressed={isActive}
               aria-label={`Select ${info.chain} consensus mechanism`}
             >
-              <span className="text-lg block">{info.icon}</span>
-              <span className="block mt-1 font-semibold">{info.chain}</span>
-              <span className="block text-[10px] text-gray-500">
-                {m === "qbft" ? "BFT" : info.name.split(" ").slice(-1)}
+              <span className="text-base block">{info.icon}</span>
+              <span className="block mt-0.5 font-semibold text-[10px]">{info.chain}</span>
+              <span className="block text-[8px] text-gray-500 truncate max-w-[60px]">
+                {info.subtitle.split(" ")[0]}
               </span>
             </button>
           );

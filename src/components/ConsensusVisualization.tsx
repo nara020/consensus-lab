@@ -11,9 +11,20 @@ import {
   usePoSSimulation,
   useRaftSimulation,
   useQbftSimulation,
+  useOptimisticSimulation,
+  useZkSimulation,
+  useRippleSimulation,
 } from "@/hooks";
 import { useI18n } from "@/i18n";
-import { PoWScene, PoSScene, RaftScene, QbftScene } from "./visualization/scenes";
+import {
+  PoWScene,
+  PoSScene,
+  RaftScene,
+  QbftScene,
+  OptimisticScene,
+  ZkScene,
+  RippleScene,
+} from "./visualization/scenes";
 import {
   ModeSelector,
   InfoPanel,
@@ -67,6 +78,9 @@ export default function ConsensusVisualization() {
   const posSimulation = usePoSSimulation(actions, audio);
   const raftSimulation = useRaftSimulation(actions, audio);
   const qbftSimulation = useQbftSimulation(actions, audio);
+  const optimisticSimulation = useOptimisticSimulation(actions, audio);
+  const zkSimulation = useZkSimulation(actions, audio);
+  const rippleSimulation = useRippleSimulation(actions, audio);
 
   // Get current simulation based on mode
   const simulations = useMemo(
@@ -75,8 +89,11 @@ export default function ConsensusVisualization() {
       pos: posSimulation,
       raft: raftSimulation,
       qbft: qbftSimulation,
+      optimistic: optimisticSimulation,
+      zk: zkSimulation,
+      ripple: rippleSimulation,
     }),
-    [powSimulation, posSimulation, raftSimulation, qbftSimulation]
+    [powSimulation, posSimulation, raftSimulation, qbftSimulation, optimisticSimulation, zkSimulation, rippleSimulation]
   );
 
   // Handlers
@@ -188,6 +205,39 @@ export default function ConsensusVisualization() {
             prepareCount={state.prepareCount}
             commitCount={state.commitCount}
             blocks={state.blocks}
+          />
+        )}
+        {mode === "optimistic" && (
+          <OptimisticScene
+            l2Blocks={state.l2Blocks}
+            l1Blocks={state.l1Blocks}
+            validators={state.validators}
+            transactions={state.transactions}
+            challengePeriod={state.challengePeriod}
+            fraudProofSubmitted={state.fraudProofSubmitted}
+            currentStep={state.currentStep}
+          />
+        )}
+        {mode === "zk" && (
+          <ZkScene
+            l2Blocks={state.l2Blocks}
+            l1Blocks={state.l1Blocks}
+            validators={state.validators}
+            transactions={state.transactions}
+            proofProgress={state.proofProgress}
+            batchSize={state.batchSize}
+            proofGenerated={state.proofGenerated}
+            currentStep={state.currentStep}
+          />
+        )}
+        {mode === "ripple" && (
+          <RippleScene
+            validators={state.validators}
+            blocks={state.blocks}
+            transactions={state.transactions}
+            agreementPercent={state.agreementPercent}
+            roundNumber={state.roundNumber}
+            currentStep={state.currentStep}
           />
         )}
       </Canvas>

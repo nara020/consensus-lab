@@ -43,6 +43,19 @@ export interface SimulationState {
   currentBlock: ChainBlock | null;
   prepareCount: number;
   commitCount: number;
+
+  // Layer 2 (Optimistic/ZK) specific
+  l2Blocks: ChainBlock[];
+  l1Blocks: ChainBlock[];
+  challengePeriod: number;
+  fraudProofSubmitted: boolean;
+  proofProgress: number;
+  batchSize: number;
+  proofGenerated: boolean;
+
+  // Ripple specific
+  agreementPercent: number;
+  roundNumber: number;
 }
 
 // ==========================================
@@ -70,6 +83,17 @@ type SimulationAction =
   | { type: "SET_CURRENT_BLOCK"; payload: ChainBlock | null }
   | { type: "SET_PREPARE_COUNT"; payload: number }
   | { type: "SET_COMMIT_COUNT"; payload: number }
+  // Layer 2 actions
+  | { type: "SET_L2_BLOCKS"; payload: ChainBlock[] }
+  | { type: "SET_L1_BLOCKS"; payload: ChainBlock[] }
+  | { type: "SET_CHALLENGE_PERIOD"; payload: number }
+  | { type: "SET_FRAUD_PROOF_SUBMITTED"; payload: boolean }
+  | { type: "SET_PROOF_PROGRESS"; payload: number }
+  | { type: "SET_BATCH_SIZE"; payload: number }
+  | { type: "SET_PROOF_GENERATED"; payload: boolean }
+  // Ripple actions
+  | { type: "SET_AGREEMENT_PERCENT"; payload: number }
+  | { type: "SET_ROUND_NUMBER"; payload: number }
   | { type: "RESET" };
 
 // ==========================================
@@ -103,6 +127,17 @@ const initialState: SimulationState = {
   currentBlock: null,
   prepareCount: 0,
   commitCount: 0,
+  // Layer 2
+  l2Blocks: [],
+  l1Blocks: [],
+  challengePeriod: 0,
+  fraudProofSubmitted: false,
+  proofProgress: 0,
+  batchSize: 0,
+  proofGenerated: false,
+  // Ripple
+  agreementPercent: 0,
+  roundNumber: 0,
 };
 
 // ==========================================
@@ -183,6 +218,35 @@ function simulationReducer(
     case "SET_COMMIT_COUNT":
       return { ...state, commitCount: action.payload };
 
+    // Layer 2 cases
+    case "SET_L2_BLOCKS":
+      return { ...state, l2Blocks: action.payload };
+
+    case "SET_L1_BLOCKS":
+      return { ...state, l1Blocks: action.payload };
+
+    case "SET_CHALLENGE_PERIOD":
+      return { ...state, challengePeriod: action.payload };
+
+    case "SET_FRAUD_PROOF_SUBMITTED":
+      return { ...state, fraudProofSubmitted: action.payload };
+
+    case "SET_PROOF_PROGRESS":
+      return { ...state, proofProgress: action.payload };
+
+    case "SET_BATCH_SIZE":
+      return { ...state, batchSize: action.payload };
+
+    case "SET_PROOF_GENERATED":
+      return { ...state, proofGenerated: action.payload };
+
+    // Ripple cases
+    case "SET_AGREEMENT_PERCENT":
+      return { ...state, agreementPercent: action.payload };
+
+    case "SET_ROUND_NUMBER":
+      return { ...state, roundNumber: action.payload };
+
     case "RESET":
       return initialState;
 
@@ -261,6 +325,35 @@ export function useSimulationState() {
 
       setCommitCount: (count: number) =>
         dispatch({ type: "SET_COMMIT_COUNT", payload: count }),
+
+      // Layer 2 actions
+      setL2Blocks: (blocks: ChainBlock[]) =>
+        dispatch({ type: "SET_L2_BLOCKS", payload: blocks }),
+
+      setL1Blocks: (blocks: ChainBlock[]) =>
+        dispatch({ type: "SET_L1_BLOCKS", payload: blocks }),
+
+      setChallengePeriod: (days: number) =>
+        dispatch({ type: "SET_CHALLENGE_PERIOD", payload: days }),
+
+      setFraudProofSubmitted: (submitted: boolean) =>
+        dispatch({ type: "SET_FRAUD_PROOF_SUBMITTED", payload: submitted }),
+
+      setProofProgress: (progress: number) =>
+        dispatch({ type: "SET_PROOF_PROGRESS", payload: progress }),
+
+      setBatchSize: (size: number) =>
+        dispatch({ type: "SET_BATCH_SIZE", payload: size }),
+
+      setProofGenerated: (generated: boolean) =>
+        dispatch({ type: "SET_PROOF_GENERATED", payload: generated }),
+
+      // Ripple actions
+      setAgreementPercent: (percent: number) =>
+        dispatch({ type: "SET_AGREEMENT_PERCENT", payload: percent }),
+
+      setRoundNumber: (round: number) =>
+        dispatch({ type: "SET_ROUND_NUMBER", payload: round }),
 
       reset: () => dispatch({ type: "RESET" }),
     }),

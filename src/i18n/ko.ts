@@ -50,6 +50,42 @@ export const ko: Translations = {
         "🔁 Round-Robin Proposer 로테이션",
       ],
     },
+    optimistic: {
+      name: "Optimistic Rollup",
+      chain: "Arbitrum / Optimism",
+      subtitle: "사기 증명 기반",
+      descriptions: [
+        "📦 Sequencer가 L2 트랜잭션 배치",
+        "📤 State Root를 L1(Ethereum)에 제출",
+        "⏳ 7일 챌린지 기간 (사기 증명 제출)",
+        "🕵️ 무효 시 누구나 사기 증명 제출 가능",
+        "✅ 챌린지 기간 종료 후 → Finalized",
+      ],
+    },
+    zk: {
+      name: "ZK Rollup",
+      chain: "zkSync / StarkNet",
+      subtitle: "유효성 증명 기반",
+      descriptions: [
+        "📦 Sequencer가 L2 트랜잭션 배치",
+        "🔐 ZK Prover가 유효성 증명 생성 (SNARK/STARK)",
+        "📤 증명 + State Root를 L1에 제출",
+        "⚡ L1이 증명 검증 → 즉시 확정",
+        "🚫 챌린지 기간 불필요 (수학적 증명)",
+      ],
+    },
+    ripple: {
+      name: "Ripple Protocol",
+      chain: "XRP Ledger",
+      subtitle: "RPCA (연합 BFT)",
+      descriptions: [
+        "📋 UNL(고유 노드 목록)이 신뢰 검증자 정의",
+        "🗳️ 노드들이 트랜잭션 제안 및 투표",
+        "🎯 합의에 80%+ 동의 필요",
+        "⚡ 3-5초 확정성",
+        "💡 채굴 없음, 에너지 효율적",
+      ],
+    },
   },
   ui: {
     startSimulation: "시뮬레이션 시작",
@@ -76,6 +112,20 @@ export const ko: Translations = {
     instantFinality: "Instant Finality",
     neverReverted: "Committed = 복원 불가",
     noForkPossible: "Fork 불가능 (결정적 BFT)",
+    // Category tabs
+    layer1: "Layer 1",
+    layer2: "Layer 2",
+    alternative: "대안",
+    // Layer 2 specific
+    challengePeriod: "챌린지 기간",
+    daysRemaining: "일 남음",
+    fraudProof: "사기 증명",
+    proofProgress: "증명 진행률",
+    batchSize: "배치 크기",
+    // Ripple specific
+    agreement: "동의율",
+    round: "라운드",
+    unlNodes: "UNL 노드",
   },
   steps: {
     pow: {
@@ -131,6 +181,26 @@ export const ko: Translations = {
       blockFinalized: "Finalized! Instant Finality",
       proposerRotation: "다음 라운드: Proposer 로테이션",
     },
+    optimistic: {
+      step1: "사용자가 L2 Sequencer에 트랜잭션 제출",
+      step2: "Sequencer가 L2에서 트랜잭션 실행",
+      step3: "State Root를 L1(Ethereum)에 제출",
+      step4: "챌린지 기간 시작 (7일)",
+      step5: "챌린지 기간 종료 - State 확정!",
+    },
+    zk: {
+      step1: "사용자가 L2에 트랜잭션 제출",
+      step2: "Sequencer 배치 + ZK Prover 증명 생성",
+      step3: "증명 + State Root를 L1에 제출",
+      step4: "L1 컨트랙트가 ZK 증명 검증",
+      step5: "증명 유효 - State 즉시 확정!",
+    },
+    ripple: {
+      step1: "트랜잭션이 네트워크에 제출됨",
+      step2: "UNL 노드들이 제안 및 투표",
+      step3: "동의 구축 중 (80%+ 필요)",
+      step4: "합의 달성 - Ledger 검증 완료!",
+    },
   },
   networkStats: {
     pow: {
@@ -165,6 +235,30 @@ export const ko: Translations = {
       bftVsCft: "⚡ BFT vs CFT",
       ibftTolerance: "IBFT: 33% Byzantine 허용",
       raftTolerance: "RAFT: 0% Byzantine (장애만)",
+    },
+    optimistic: {
+      layer2Scaling: "📈 Layer 2 스케일링",
+      tpsBlockFinality: "Block: ~1초 | Finality: ~7일",
+      fraudProofBased: "Optimistic: 유효하다고 가정, 사기 증명",
+      challengePeriodInfo: "⏳ 7일 챌린지 기간",
+      anyoneCanChallenge: "누구나 사기 증명 제출 가능",
+      gasEfficiency: "L1 대비 90%+ 가스 절약",
+    },
+    zk: {
+      layer2Scaling: "📈 Layer 2 스케일링",
+      tpsBlockFinality: "Block: ~1초 | Finality: ~10분 (증명)",
+      validityProof: "ZK: 수학이 유효성 증명 (무신뢰)",
+      noChallengePeriod: "⚡ 챌린지 기간 불필요",
+      instantFinality: "증명 검증 = 즉시 확정",
+      gasEfficiency: "L1 대비 85%+ 가스 절약",
+    },
+    ripple: {
+      xrpLedger: "💧 XRP Ledger",
+      tpsBlockFinality: "Block: 3-5초 | Finality: Instant",
+      unlConsensus: "UNL: 고유 노드 목록 합의",
+      agreementThreshold: "🎯 80%+ 동의 필요",
+      noMining: "채굴 없음, 최소 에너지",
+      federatedBft: "연합 비잔틴 합의 (FBA)",
     },
   },
 };

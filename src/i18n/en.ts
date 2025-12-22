@@ -50,6 +50,42 @@ export const en: Translations = {
         "🔁 Round-Robin Proposer rotation",
       ],
     },
+    optimistic: {
+      name: "Optimistic Rollup",
+      chain: "Arbitrum / Optimism",
+      subtitle: "Fraud Proof Based",
+      descriptions: [
+        "📦 Sequencer batches L2 transactions",
+        "📤 Submit state root to L1 (Ethereum)",
+        "⏳ 7-day challenge period for fraud proofs",
+        "🕵️ Anyone can submit fraud proof if invalid",
+        "✅ After challenge period → Finalized",
+      ],
+    },
+    zk: {
+      name: "ZK Rollup",
+      chain: "zkSync / StarkNet",
+      subtitle: "Validity Proof Based",
+      descriptions: [
+        "📦 Sequencer batches L2 transactions",
+        "🔐 ZK Prover generates validity proof (SNARK/STARK)",
+        "📤 Submit proof + state root to L1",
+        "⚡ L1 verifies proof → Instant finality",
+        "🚫 No challenge period (math proves validity)",
+      ],
+    },
+    ripple: {
+      name: "Ripple Protocol",
+      chain: "XRP Ledger",
+      subtitle: "RPCA (Federated BFT)",
+      descriptions: [
+        "📋 UNL (Unique Node List) defines trusted validators",
+        "🗳️ Nodes propose and vote on transactions",
+        "🎯 80%+ agreement required for consensus",
+        "⚡ 3-5 second finality",
+        "💡 No mining, energy efficient",
+      ],
+    },
   },
   ui: {
     startSimulation: "Start Simulation",
@@ -76,6 +112,20 @@ export const en: Translations = {
     instantFinality: "INSTANT FINALITY",
     neverReverted: "Committed = Never reverted",
     noForkPossible: "No forks possible (deterministic BFT)",
+    // Category tabs
+    layer1: "Layer 1",
+    layer2: "Layer 2",
+    alternative: "Alternative",
+    // Layer 2 specific
+    challengePeriod: "Challenge Period",
+    daysRemaining: "days remaining",
+    fraudProof: "Fraud Proof",
+    proofProgress: "Proof Progress",
+    batchSize: "Batch Size",
+    // Ripple specific
+    agreement: "Agreement",
+    round: "Round",
+    unlNodes: "UNL Nodes",
   },
   steps: {
     pow: {
@@ -131,6 +181,26 @@ export const en: Translations = {
       blockFinalized: "Finalized! Instant confirmation",
       proposerRotation: "Next round: Proposer rotation",
     },
+    optimistic: {
+      step1: "Users submit transactions to L2 Sequencer",
+      step2: "Sequencer executes transactions on L2",
+      step3: "Submit State Root to L1 (Ethereum)",
+      step4: "Challenge period begins (7 days)",
+      step5: "Challenge period ended - State FINALIZED!",
+    },
+    zk: {
+      step1: "Users submit transactions to L2",
+      step2: "Sequencer batches + ZK Prover generates proof",
+      step3: "Proof + State Root submitted to L1",
+      step4: "L1 contract verifies ZK proof",
+      step5: "Proof VALID - State immediately FINALIZED!",
+    },
+    ripple: {
+      step1: "Transactions submitted to network",
+      step2: "UNL nodes propose and vote",
+      step3: "Building agreement (need 80%+)",
+      step4: "Consensus achieved - Ledger validated!",
+    },
   },
   networkStats: {
     pow: {
@@ -165,6 +235,30 @@ export const en: Translations = {
       bftVsCft: "⚡ BFT vs CFT",
       ibftTolerance: "IBFT: 33% Byzantine tolerance",
       raftTolerance: "RAFT: 0% Byzantine (crashes only)",
+    },
+    optimistic: {
+      layer2Scaling: "📈 Layer 2 Scaling",
+      tpsBlockFinality: "Block: ~1s | Finality: ~7 days",
+      fraudProofBased: "Optimistic: Assume valid, prove fraud",
+      challengePeriodInfo: "⏳ 7-day challenge period",
+      anyoneCanChallenge: "Anyone can submit fraud proof",
+      gasEfficiency: "90%+ gas savings vs L1",
+    },
+    zk: {
+      layer2Scaling: "📈 Layer 2 Scaling",
+      tpsBlockFinality: "Block: ~1s | Finality: ~10min (proof)",
+      validityProof: "ZK: Math proves validity (no trust)",
+      noChallengePeriod: "⚡ No challenge period needed",
+      instantFinality: "Proof verified = Instant finality",
+      gasEfficiency: "85%+ gas savings vs L1",
+    },
+    ripple: {
+      xrpLedger: "💧 XRP Ledger",
+      tpsBlockFinality: "Block: 3-5s | Finality: Instant",
+      unlConsensus: "UNL: Unique Node List consensus",
+      agreementThreshold: "🎯 80%+ agreement required",
+      noMining: "No mining, minimal energy",
+      federatedBft: "Federated Byzantine Agreement (FBA)",
     },
   },
 };

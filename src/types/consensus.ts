@@ -3,7 +3,8 @@ import * as THREE from "three";
 // ==========================================
 // CONSENSUS MODE TYPES
 // ==========================================
-export type ConsensusMode = "pow" | "pos" | "raft" | "qbft";
+export type ConsensusMode = "pow" | "pos" | "raft" | "qbft" | "optimistic" | "zk" | "ripple";
+export type ConsensusCategory = "layer1" | "layer2" | "alternative";
 export type Phase = "idle" | "running" | "complete";
 
 // ==========================================
@@ -17,7 +18,12 @@ export type BlockStatus =
   | "orphaned"
   | "proposed"
   | "justified"
-  | "committed";
+  | "committed"
+  | "batched"      // Layer 2: transactions batched
+  | "submitted"    // Layer 2: submitted to L1
+  | "challenged"   // Optimistic: in challenge period
+  | "proven"       // ZK: proof generated
+  | "validated";   // Ripple: validated by UNL
 
 export interface ChainBlock {
   id: string;
@@ -31,7 +37,7 @@ export interface ChainBlock {
 // ==========================================
 // VALIDATOR/NODE TYPES
 // ==========================================
-export type ValidatorRole = "leader" | "follower" | "proposer" | "validator" | "miner";
+export type ValidatorRole = "leader" | "follower" | "proposer" | "validator" | "miner" | "sequencer" | "prover" | "unlNode";
 export type VoteType = "none" | "prepare" | "commit" | "attest";
 
 export interface Validator {
@@ -125,6 +131,35 @@ export interface QbftState extends SimulationState {
   currentBlock: ChainBlock | null;
   prepareCount: number;
   commitCount: number;
+}
+
+// ==========================================
+// LAYER 2 SPECIFIC TYPES
+// ==========================================
+export interface OptimisticState extends SimulationState {
+  l2Blocks: ChainBlock[];
+  l1Blocks: ChainBlock[];
+  challengePeriod: number; // 7 days in real, simulated
+  fraudProofSubmitted: boolean;
+  sequencerAddress: string;
+}
+
+export interface ZkState extends SimulationState {
+  l2Blocks: ChainBlock[];
+  l1Blocks: ChainBlock[];
+  proofProgress: number; // 0-100%
+  batchSize: number;
+  proofGenerated: boolean;
+}
+
+// ==========================================
+// RIPPLE SPECIFIC TYPES
+// ==========================================
+export interface RippleState extends SimulationState {
+  unlNodes: Validator[]; // Unique Node List
+  agreementPercent: number; // Need 80%+
+  roundNumber: number;
+  proposalCount: number;
 }
 
 // ==========================================
