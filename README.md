@@ -78,8 +78,8 @@
 |-----------|---------|-----------------|----------|-----|
 | **Proof of Work** | Bitcoin | 51% attack resistant | ~60 min (6 blocks) | ~7 |
 | **Proof of Stake** | Ethereum | 34% stake attack | ~13 min (2 epochs) | ~30 |
-| **RAFT** | Hyperledger Fabric | CFT (N-1)/2 crashes | Instant | 3,000-20,000 |
-| **IBFT 2.0** | Hyperledger Besu | BFT 33% Byzantine | Instant | 100-1,000 |
+| **RAFT** | Hyperledger Fabric | CFT (N-1)/2 crashes | Instant | 1,000-3,500 |
+| **IBFT 2.0** | Hyperledger Besu | BFT 33% Byzantine | Instant | 300-2,000 |
 
 ### 🎨 Visual & Interactive
 
