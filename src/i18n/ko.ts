@@ -135,14 +135,14 @@ export const ko: Translations = {
   networkStats: {
     pow: {
       blockReward: "💰 Block Reward: 3.125 BTC ≈ $310K",
-      tpsBlockFinality: "TPS: ~7 | Block: 10분 | Finality: 60분",
+      tpsBlockFinality: "Block: 10분 | Finality: 60분",
       networkDelay: "네트워크 지연 ~10초로 Fork 발생",
       orphanedBlocks: "⚠️ Orphan 블록",
       lostRewards: "모든 보상 + 전기세 손실",
     },
     pos: {
       networkStats: "📊 Network Stats",
-      tpsBlockFinality: "TPS: ~30 | Block: 12초 | Finality: 13분",
+      tpsBlockFinality: "Block: 12초 | Finality: 13분",
       aprValidatorsStaked: "APR: ~4.5% | 90만 검증자 | $800억 스테이킹",
       slashingWarning: "⚠️ Slashing: 이중투표/포위투표 → 1-32 ETH",
       finalizedIrreversible: "✅ Finalized = 복원 불가",
@@ -154,14 +154,14 @@ export const ko: Translations = {
       cftDenies: "✗ 악의적 노드 (Byzantine)",
       maxFailHeartbeat: "Max Failures: (N-1)/2 | Heartbeat: 150ms",
       performance: "📊 Performance",
-      tpsBlock: "TPS: 3,000-20,000 | Block: ~1초",
+      tpsBlock: "Block: ~1초 | Instant Finality",
       finalityNetwork: "Finality: Instant | Private Network",
     },
     qbft: {
       bft: "🛡️ BFT (Byzantine Fault Tolerance)",
       bftAllows: "✓ 악의적 노드, 장애, 지연",
       quorumFormula: "N ≥ 3f+1 | Quorum: 2f+1 = 3/4",
-      tpsBlockInstant: "TPS: 100-1K | Block: 2-5초 | Instant",
+      tpsBlockInstant: "Block: 2-5초 | Instant Finality",
       bftVsCft: "⚡ BFT vs CFT",
       ibftTolerance: "IBFT: 33% Byzantine 허용",
       raftTolerance: "RAFT: 0% Byzantine (장애만)",

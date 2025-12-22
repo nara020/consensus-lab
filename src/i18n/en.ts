@@ -135,14 +135,14 @@ export const en: Translations = {
   networkStats: {
     pow: {
       blockReward: "💰 Block Reward: 3.125 BTC ≈ $310K",
-      tpsBlockFinality: "TPS: ~7 | Block: 10min | Finality: 60min",
+      tpsBlockFinality: "Block: 10min | Finality: 60min",
       networkDelay: "Network delay ~10s causes forks",
       orphanedBlocks: "⚠️ ORPHANED BLOCKS",
       lostRewards: "All rewards + electricity cost LOST",
     },
     pos: {
       networkStats: "📊 Network Stats",
-      tpsBlockFinality: "TPS: ~30 | Block: 12s | Finality: 13min",
+      tpsBlockFinality: "Block: 12s | Finality: 13min",
       aprValidatorsStaked: "APR: ~4.5% | 900K validators | $80B staked",
       slashingWarning: "⚠️ Slashing: Double/Surround Vote → 1-32 ETH",
       finalizedIrreversible: "✅ FINALIZED = IRREVERSIBLE",
@@ -154,14 +154,14 @@ export const en: Translations = {
       cftDenies: "✗ Malicious nodes (Byzantine)",
       maxFailHeartbeat: "Max fail: (N-1)/2 | Heartbeat: 150ms",
       performance: "📊 Performance",
-      tpsBlock: "TPS: 3,000-20,000 | Block: ~1s",
+      tpsBlock: "Block: ~1s | Instant Finality",
       finalityNetwork: "Finality: Instant | Private network",
     },
     qbft: {
       bft: "🛡️ BFT (Byzantine Fault Tolerant)",
       bftAllows: "✓ Malicious nodes, Crashes, Delays",
       quorumFormula: "N ≥ 3f+1 | Quorum: 2f+1 = 3/4",
-      tpsBlockInstant: "TPS: 100-1K | Block: 2-5s | Instant",
+      tpsBlockInstant: "Block: 2-5s | Instant Finality",
       bftVsCft: "⚡ BFT vs CFT",
       ibftTolerance: "IBFT: 33% Byzantine tolerance",
       raftTolerance: "RAFT: 0% Byzantine (crashes only)",
