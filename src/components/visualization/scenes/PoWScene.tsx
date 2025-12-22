@@ -92,8 +92,8 @@ function PoWSceneComponent({
         </group>
       ))}
 
-      {/* Genesis block - moved left to avoid overlap */}
-      <group position={[-5.5, 0, 0]}>
+      {/* Genesis block - positioned between labels and first blocks */}
+      <group position={[-4, 0, 0]}>
         <mesh>
           <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial
@@ -184,7 +184,7 @@ function PoWSceneComponent({
           return (
             <ChainLine
               key={`line-${block.id}`}
-              from={new THREE.Vector3(-5.5, 0, 0)}
+              from={new THREE.Vector3(-4, 0, 0)}
               to={block.position}
               color={lineColor}
               opacity={block.status === "orphaned" ? 0.15 : 0.6}
