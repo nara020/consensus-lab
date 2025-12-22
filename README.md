@@ -74,12 +74,12 @@
 
 ### 🔗 Four Consensus Mechanisms
 
-| Mechanism | Network | Fault Tolerance | Finality | TPS |
-|-----------|---------|-----------------|----------|-----|
-| **Proof of Work** | Bitcoin | 51% attack resistant | ~60 min (6 blocks) | ~7 |
-| **Proof of Stake** | Ethereum | 34% stake attack | ~13 min (2 epochs) | ~30 |
-| **RAFT** | Hyperledger Fabric | CFT (N-1)/2 crashes | Instant | 1,000-3,500 |
-| **IBFT 2.0** | Hyperledger Besu | BFT 33% Byzantine | Instant | 300-2,000 |
+| Mechanism | Network | Fault Tolerance | Finality |
+|-----------|---------|-----------------|----------|
+| **Proof of Work** | Bitcoin | 51% attack resistant | ~60 min (6 blocks) |
+| **Proof of Stake** | Ethereum | 34% stake attack | ~13 min (2 epochs) |
+| **RAFT** | Hyperledger Fabric | CFT (N-1)/2 crashes | Instant |
+| **IBFT 2.0** | Hyperledger Besu | BFT 33% Byzantine | Instant |
 
 ### 🎨 Visual & Interactive
 
