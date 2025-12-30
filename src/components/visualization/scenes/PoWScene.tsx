@@ -121,7 +121,7 @@ function PoWSceneComponent({
       {isMining && (
         <group>
           <Text position={[-6.5, 3.2, 0]} fontSize={0.18} color="#f7931a" anchorX="left">
-            Target: hash must start with "0000..."
+            Target: hash must start with &quot;0000...&quot;
           </Text>
           {REGIONS.map((region, i) => (
             <group key={`mining-${i}`}>
@@ -174,7 +174,7 @@ function PoWSceneComponent({
       ))}
 
       {/* Chain lines */}
-      {blocks.map((block, i) => {
+      {blocks.map((block) => {
         const sameBranch = blocks.filter((b) => b.branch === block.branch);
         const idx = sameBranch.indexOf(block);
         const regionColor = REGIONS[block.branch]?.color || "#f7931a";

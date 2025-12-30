@@ -2,11 +2,11 @@
 
 import { memo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Text, Line, Stars, RoundedBox, Ring } from "@react-three/drei";
+import { Text, Line, Stars, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 import type { ChainBlock, Validator, Transaction } from "@/types/consensus";
 import { useI18n } from "@/i18n";
-import { Block, Node, ChainLine, TransactionParticle, Effects } from "../index";
+import { Block, TransactionParticle, Effects } from "../index";
 
 // ==========================================
 // PROPS
@@ -61,7 +61,7 @@ function ZkSceneComponent({
   currentStep,
 }: ZkSceneProps) {
   const { camera } = useThree();
-  const { t } = useI18n();
+  useI18n();
 
   useFrame(() => {
     camera.position.lerp(new THREE.Vector3(0, 0, 18), 0.02);

@@ -8,4 +8,7 @@ export {
   useOptimisticSimulation,
   useZkSimulation,
   useRippleSimulation,
+  useTendermintSimulation,
+  useAvalancheSimulation,
+  useSuiSimulation,
 } from "./simulations";

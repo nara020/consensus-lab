@@ -45,7 +45,7 @@ interface I18nProviderProps {
 
 export function I18nProvider({
   children,
-  defaultLocale = "ko",
+  defaultLocale = "en",
 }: I18nProviderProps) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
 

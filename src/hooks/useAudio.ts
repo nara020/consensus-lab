@@ -40,7 +40,8 @@ const SOUNDS: Record<keyof AudioActions, SoundConfig> = {
 // HOOK
 // ==========================================
 export function useAudio(): AudioActions {
-  const isInitialized = useRef(false);
+  const _isInitialized = useRef(false);
+  void _isInitialized; // Reserved for future audio initialization tracking
 
   const playSound = useCallback(
     (

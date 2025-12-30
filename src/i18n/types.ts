@@ -43,6 +43,24 @@ export interface ConsensusTranslations {
     subtitle: string;
     descriptions: string[];
   };
+  tendermint: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
+  avalanche: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
+  sui: {
+    name: string;
+    chain: string;
+    subtitle: string;
+    descriptions: string[];
+  };
 }
 
 export interface UITranslations {
@@ -84,6 +102,31 @@ export interface UITranslations {
   agreement: string;
   round: string;
   unlNodes: string;
+  // Tendermint specific
+  height: string;
+  prevote: string;
+  precommit: string;
+  lockedRound: string;
+  // Avalanche specific
+  confidence: string;
+  queryRound: string;
+  sampleSize: string;
+  decided: string;
+  snowball: string;
+  // Sui/Narwhal specific
+  dagRound: string;
+  certificates: string;
+  vertices: string;
+  workers: string;
+  primaries: string;
+  // History link
+  viewHistory: string;
+  // Info panel
+  viewDetails: string;
+  closeModal: string;
+  visitOfficialSite: string;
+  // Simulation preview
+  simulationSteps: string;
 }
 
 export interface StepTranslations {
@@ -160,6 +203,27 @@ export interface StepTranslations {
     step3: string;
     step4: string;
   };
+  tendermint: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+    step5: string;
+  };
+  avalanche: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+    step5: string;
+  };
+  sui: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+    step5: string;
+  };
 }
 
 export interface NetworkStatsTranslations {
@@ -220,6 +284,45 @@ export interface NetworkStatsTranslations {
     noMining: string;
     federatedBft: string;
   };
+  tendermint: {
+    cosmosHub: string;
+    tpsBlockFinality: string;
+    roundBased: string;
+    twoThirdsVoting: string;
+    instantFinality: string;
+    cosmosEcosystem: string;
+  };
+  avalanche: {
+    avalancheNetwork: string;
+    tpsBlockFinality: string;
+    probabilisticBft: string;
+    snowballProtocol: string;
+    subSecondFinality: string;
+    highThroughput: string;
+  };
+  sui: {
+    suiNetwork: string;
+    tpsBlockFinality: string;
+    dagBasedMempool: string;
+    parallelExecution: string;
+    narwhalBullshark: string;
+    highTps: string;
+  };
+}
+
+export interface HistoryTranslations {
+  title: string;
+  subtitle: string;
+  backToLab: string;
+  categories: {
+    academic: string;
+    mainnet: string;
+    upgrade: string;
+    layer2: string;
+    all: string;
+  };
+  viewDetails: string;
+  references: string;
 }
 
 export interface Translations {
@@ -227,4 +330,5 @@ export interface Translations {
   ui: UITranslations;
   steps: StepTranslations;
   networkStats: NetworkStatsTranslations;
+  history: HistoryTranslations;
 }

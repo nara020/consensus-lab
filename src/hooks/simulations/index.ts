@@ -7,3 +7,8 @@ export { useOptimisticSimulation } from "./useOptimisticSimulation";
 export { useZkSimulation } from "./useZkSimulation";
 // Alternative
 export { useRippleSimulation } from "./useRippleSimulation";
+// BFT Variants
+export { useTendermintSimulation } from "./useTendermintSimulation";
+export { useAvalancheSimulation } from "./useAvalancheSimulation";
+// DAG-based
+export { useSuiSimulation } from "./useSuiSimulation";

@@ -23,6 +23,8 @@ function BlockComponent({ block, showLabel = true }: BlockProps) {
   const [scale, setScale] = useState(0);
 
   useEffect(() => {
+    // Intentional: Reset animation on block change
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setScale(0);
     const timer = setTimeout(() => setScale(1), 50);
     return () => clearTimeout(timer);

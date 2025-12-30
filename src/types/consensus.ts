@@ -3,7 +3,10 @@ import * as THREE from "three";
 // ==========================================
 // CONSENSUS MODE TYPES
 // ==========================================
-export type ConsensusMode = "pow" | "pos" | "raft" | "qbft" | "optimistic" | "zk" | "ripple";
+export type ConsensusMode =
+  | "pow" | "pos" | "raft" | "qbft"           // Layer 1
+  | "optimistic" | "zk"                        // Layer 2
+  | "ripple" | "tendermint" | "avalanche" | "sui";  // Alternative/Modern
 export type ConsensusCategory = "layer1" | "layer2" | "alternative";
 export type Phase = "idle" | "running" | "complete";
 
@@ -23,7 +26,18 @@ export type BlockStatus =
   | "submitted"    // Layer 2: submitted to L1
   | "challenged"   // Optimistic: in challenge period
   | "proven"       // ZK: proof generated
-  | "validated";   // Ripple: validated by UNL
+  | "validated"    // Ripple: validated by UNL
+  // Tendermint
+  | "prevoted"     // Tendermint: received 2/3+ prevotes
+  | "precommitted" // Tendermint: received 2/3+ precommits
+  // Avalanche
+  | "queried"      // Avalanche: being queried
+  | "preferred"    // Avalanche: preferred by majority
+  | "accepted"     // Avalanche: accepted (high confidence)
+  // Sui/Narwhal
+  | "certified"    // Sui: received certificate from validators
+  | "ordered"      // Sui: ordered in DAG
+  | "executed";    // Sui: executed
 
 export interface ChainBlock {
   id: string;
@@ -37,8 +51,24 @@ export interface ChainBlock {
 // ==========================================
 // VALIDATOR/NODE TYPES
 // ==========================================
-export type ValidatorRole = "leader" | "follower" | "proposer" | "validator" | "miner" | "sequencer" | "prover" | "unlNode";
-export type VoteType = "none" | "prepare" | "commit" | "attest";
+export type ValidatorRole =
+  | "leader" | "follower" | "proposer" | "validator" | "miner"
+  | "sequencer" | "prover" | "unlNode"
+  // Tendermint
+  | "tendermintValidator"
+  // Avalanche
+  | "avalancheNode"
+  // Sui/Narwhal
+  | "worker" | "primary" | "dagNode";
+
+export type VoteType =
+  | "none" | "prepare" | "commit" | "attest"
+  // Tendermint
+  | "prevote" | "precommit"
+  // Avalanche
+  | "query" | "response"
+  // Sui
+  | "certify";
 
 export interface Validator {
   id: number;
@@ -160,6 +190,78 @@ export interface RippleState extends SimulationState {
   agreementPercent: number; // Need 80%+
   roundNumber: number;
   proposalCount: number;
+}
+
+// ==========================================
+// TENDERMINT SPECIFIC TYPES
+// ==========================================
+export interface TendermintState extends SimulationState {
+  currentRound: number;
+  currentHeight: number;
+  prevoteCount: number;
+  precommitCount: number;
+  lockedBlock: ChainBlock | null;
+  lockedRound: number;
+  validRound: number;
+}
+
+// ==========================================
+// AVALANCHE SPECIFIC TYPES
+// ==========================================
+export interface AvalancheNode {
+  id: number;
+  position: THREE.Vector3;
+  preference: number; // block id preference
+  confidence: number; // 0-100
+  consecutiveSuccesses: number;
+  decided: boolean;
+}
+
+export interface AvalancheState extends SimulationState {
+  nodes: AvalancheNode[];
+  queryRound: number;
+  sampleSize: number; // k parameter (typically 20)
+  quorumSize: number; // α parameter (typically 14)
+  decisionThreshold: number; // β parameter (typically 20)
+  conflictingBlocks: ChainBlock[];
+  finalizedBlock: ChainBlock | null;
+  networkConfidence: number; // average confidence
+}
+
+// ==========================================
+// SUI/NARWHAL-BULLSHARK SPECIFIC TYPES
+// ==========================================
+export interface DagVertex {
+  id: string;
+  position: THREE.Vector3;
+  round: number;
+  author: number; // validator id
+  parents: string[]; // parent vertex ids
+  status: "proposed" | "certified" | "committed";
+  transactions: number;
+}
+
+export interface SuiState extends SimulationState {
+  dagVertices: DagVertex[];
+  currentRound: number;
+  certificates: number;
+  committedLeaders: string[];
+  // Narwhal mempool
+  workers: Validator[];
+  primaries: Validator[];
+  batchesCreated: number;
+  // Bullshark ordering
+  anchorCommitted: boolean;
+  orderedTransactions: number;
+}
+
+// ==========================================
+// ENHANCED POS STATE (for RANDAO)
+// ==========================================
+export interface RandaoData {
+  currentSeed: string;
+  revealedValues: string[];
+  mixedHash: string;
 }
 
 // ==========================================

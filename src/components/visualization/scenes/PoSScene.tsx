@@ -4,7 +4,7 @@ import { memo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Text, Stars } from "@react-three/drei";
 import * as THREE from "three";
-import type { ChainBlock, Validator, Transaction, StakeData } from "@/types/consensus";
+import type { ChainBlock, Validator, Transaction, StakeData, RandaoData } from "@/types/consensus";
 import { useI18n } from "@/i18n";
 import { Block, Node, ChainLine, TransactionParticle, Effects } from "../index";
 
@@ -19,6 +19,7 @@ interface PoSSceneProps {
   currentEpoch: number;
   attestations: number;
   stakeData: StakeData;
+  randaoData: RandaoData;
 }
 
 // ==========================================
@@ -32,6 +33,7 @@ function PoSSceneComponent({
   currentEpoch,
   attestations,
   stakeData,
+  randaoData,
 }: PoSSceneProps) {
   const { camera } = useThree();
   const { t } = useI18n();
@@ -94,8 +96,26 @@ function PoSSceneComponent({
           </group>
         ))}
 
+      {/* RANDAO Panel */}
+      <group position={[5, 2.8, 0]}>
+        <Text position={[0, 0, 0]} fontSize={0.16} color="#fbbf24" anchorX="left">
+          🎲 RANDAO
+        </Text>
+        <Text position={[0, -0.28, 0]} fontSize={0.11} color="#94a3b8" anchorX="left">
+          Seed: {randaoData.currentSeed.slice(0, 10)}...
+        </Text>
+        {randaoData.mixedHash && (
+          <Text position={[0, -0.50, 0]} fontSize={0.11} color="#22c55e" anchorX="left">
+            Mixed: {randaoData.mixedHash.slice(0, 10)}...
+          </Text>
+        )}
+        <Text position={[0, -0.72, 0]} fontSize={0.10} color="#6b7280" anchorX="left">
+          Reveals: {randaoData.revealedValues.length}
+        </Text>
+      </group>
+
       {/* Status legend */}
-      <group position={[5, 2, 0]}>
+      <group position={[5, 1.4, 0]}>
         <Text position={[0, 0.6, 0]} fontSize={0.15} color="#a855f7" anchorX="left">
           ● {t.ui.finalized}
         </Text>

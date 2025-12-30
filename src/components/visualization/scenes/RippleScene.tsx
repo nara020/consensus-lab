@@ -6,7 +6,7 @@ import { Text, Line, Stars, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 import type { ChainBlock, Validator, Transaction } from "@/types/consensus";
 import { useI18n } from "@/i18n";
-import { Block, TransactionParticle, Effects } from "../index";
+import { TransactionParticle, Effects } from "../index";
 
 // ==========================================
 // PROPS
@@ -88,7 +88,7 @@ function RippleSceneComponent({
   currentStep,
 }: RippleSceneProps) {
   const { camera } = useThree();
-  const { t } = useI18n();
+  useI18n();
 
   useFrame(() => {
     camera.position.lerp(new THREE.Vector3(0, 0, 14), 0.02);

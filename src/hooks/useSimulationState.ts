@@ -1,7 +1,6 @@
 "use client";
 
-import { useReducer, useCallback, useMemo } from "react";
-import * as THREE from "three";
+import { useReducer, useMemo } from "react";
 import type {
   ChainBlock,
   Validator,
@@ -9,6 +8,8 @@ import type {
   MiningData,
   StakeData,
   Phase,
+  DagVertex,
+  RandaoData,
 } from "@/types/consensus";
 
 // ==========================================
@@ -34,6 +35,7 @@ export interface SimulationState {
   currentEpoch: number;
   attestations: number;
   stakeData: StakeData;
+  randaoData: RandaoData;
 
   // RAFT specific
   logEntries: number;
@@ -43,6 +45,7 @@ export interface SimulationState {
   currentBlock: ChainBlock | null;
   prepareCount: number;
   commitCount: number;
+  byzantineNode: number; // -1 = none, otherwise validator id
 
   // Layer 2 (Optimistic/ZK) specific
   l2Blocks: ChainBlock[];
@@ -56,6 +59,24 @@ export interface SimulationState {
   // Ripple specific
   agreementPercent: number;
   roundNumber: number;
+
+  // Tendermint specific
+  tendermintRound: number;
+  tendermintHeight: number;
+  prevoteCount: number;
+  precommitCount: number;
+
+  // Avalanche specific
+  avalancheConfidence: number[];
+  avalancheQueryRound: number;
+  avalancheDecided: boolean[];
+  networkConfidence: number;
+
+  // Sui/Narwhal specific
+  dagVertices: DagVertex[];
+  dagRound: number;
+  suiCertificates: number;
+  anchorCommitted: boolean;
 }
 
 // ==========================================
@@ -78,11 +99,13 @@ type SimulationAction =
   | { type: "SET_ATTESTATIONS"; payload: number }
   | { type: "SET_STAKE_DATA"; payload: StakeData }
   | { type: "UPDATE_STAKE_DATA"; payload: (data: StakeData) => StakeData }
+  | { type: "SET_RANDAO_DATA"; payload: RandaoData }
   | { type: "SET_LOG_ENTRIES"; payload: number }
   | { type: "SET_REPLICATED_COUNT"; payload: number }
   | { type: "SET_CURRENT_BLOCK"; payload: ChainBlock | null }
   | { type: "SET_PREPARE_COUNT"; payload: number }
   | { type: "SET_COMMIT_COUNT"; payload: number }
+  | { type: "SET_BYZANTINE_NODE"; payload: number }
   // Layer 2 actions
   | { type: "SET_L2_BLOCKS"; payload: ChainBlock[] }
   | { type: "SET_L1_BLOCKS"; payload: ChainBlock[] }
@@ -94,6 +117,21 @@ type SimulationAction =
   // Ripple actions
   | { type: "SET_AGREEMENT_PERCENT"; payload: number }
   | { type: "SET_ROUND_NUMBER"; payload: number }
+  // Tendermint actions
+  | { type: "SET_TENDERMINT_ROUND"; payload: number }
+  | { type: "SET_TENDERMINT_HEIGHT"; payload: number }
+  | { type: "SET_PREVOTE_COUNT"; payload: number }
+  | { type: "SET_PRECOMMIT_COUNT"; payload: number }
+  // Avalanche actions
+  | { type: "SET_AVALANCHE_CONFIDENCE"; payload: number[] }
+  | { type: "SET_AVALANCHE_QUERY_ROUND"; payload: number }
+  | { type: "SET_AVALANCHE_DECIDED"; payload: boolean[] }
+  | { type: "SET_NETWORK_CONFIDENCE"; payload: number }
+  // Sui/Narwhal actions
+  | { type: "SET_DAG_VERTICES"; payload: DagVertex[] }
+  | { type: "SET_DAG_ROUND"; payload: number }
+  | { type: "SET_SUI_CERTIFICATES"; payload: number }
+  | { type: "SET_ANCHOR_COMMITTED"; payload: boolean }
   | { type: "RESET" };
 
 // ==========================================
@@ -122,11 +160,17 @@ const initialState: SimulationState = {
     totalStake: 240,
     selectedProposer: -1,
   },
+  randaoData: {
+    currentSeed: "0x0000",
+    revealedValues: [],
+    mixedHash: "",
+  },
   logEntries: 0,
   replicatedCount: 0,
   currentBlock: null,
   prepareCount: 0,
   commitCount: 0,
+  byzantineNode: -1,
   // Layer 2
   l2Blocks: [],
   l1Blocks: [],
@@ -138,6 +182,21 @@ const initialState: SimulationState = {
   // Ripple
   agreementPercent: 0,
   roundNumber: 0,
+  // Tendermint
+  tendermintRound: 0,
+  tendermintHeight: 0,
+  prevoteCount: 0,
+  precommitCount: 0,
+  // Avalanche
+  avalancheConfidence: [],
+  avalancheQueryRound: 0,
+  avalancheDecided: [],
+  networkConfidence: 0,
+  // Sui/Narwhal
+  dagVertices: [],
+  dagRound: 0,
+  suiCertificates: 0,
+  anchorCommitted: false,
 };
 
 // ==========================================
@@ -203,6 +262,9 @@ function simulationReducer(
     case "UPDATE_STAKE_DATA":
       return { ...state, stakeData: action.payload(state.stakeData) };
 
+    case "SET_RANDAO_DATA":
+      return { ...state, randaoData: action.payload };
+
     case "SET_LOG_ENTRIES":
       return { ...state, logEntries: action.payload };
 
@@ -217,6 +279,9 @@ function simulationReducer(
 
     case "SET_COMMIT_COUNT":
       return { ...state, commitCount: action.payload };
+
+    case "SET_BYZANTINE_NODE":
+      return { ...state, byzantineNode: action.payload };
 
     // Layer 2 cases
     case "SET_L2_BLOCKS":
@@ -246,6 +311,45 @@ function simulationReducer(
 
     case "SET_ROUND_NUMBER":
       return { ...state, roundNumber: action.payload };
+
+    // Tendermint cases
+    case "SET_TENDERMINT_ROUND":
+      return { ...state, tendermintRound: action.payload };
+
+    case "SET_TENDERMINT_HEIGHT":
+      return { ...state, tendermintHeight: action.payload };
+
+    case "SET_PREVOTE_COUNT":
+      return { ...state, prevoteCount: action.payload };
+
+    case "SET_PRECOMMIT_COUNT":
+      return { ...state, precommitCount: action.payload };
+
+    // Avalanche cases
+    case "SET_AVALANCHE_CONFIDENCE":
+      return { ...state, avalancheConfidence: action.payload };
+
+    case "SET_AVALANCHE_QUERY_ROUND":
+      return { ...state, avalancheQueryRound: action.payload };
+
+    case "SET_AVALANCHE_DECIDED":
+      return { ...state, avalancheDecided: action.payload };
+
+    case "SET_NETWORK_CONFIDENCE":
+      return { ...state, networkConfidence: action.payload };
+
+    // Sui/Narwhal cases
+    case "SET_DAG_VERTICES":
+      return { ...state, dagVertices: action.payload };
+
+    case "SET_DAG_ROUND":
+      return { ...state, dagRound: action.payload };
+
+    case "SET_SUI_CERTIFICATES":
+      return { ...state, suiCertificates: action.payload };
+
+    case "SET_ANCHOR_COMMITTED":
+      return { ...state, anchorCommitted: action.payload };
 
     case "RESET":
       return initialState;
@@ -311,6 +415,9 @@ export function useSimulationState() {
       updateStakeData: (updater: (data: StakeData) => StakeData) =>
         dispatch({ type: "UPDATE_STAKE_DATA", payload: updater }),
 
+      setRandaoData: (data: RandaoData) =>
+        dispatch({ type: "SET_RANDAO_DATA", payload: data }),
+
       setLogEntries: (count: number) =>
         dispatch({ type: "SET_LOG_ENTRIES", payload: count }),
 
@@ -325,6 +432,9 @@ export function useSimulationState() {
 
       setCommitCount: (count: number) =>
         dispatch({ type: "SET_COMMIT_COUNT", payload: count }),
+
+      setByzantineNode: (nodeId: number) =>
+        dispatch({ type: "SET_BYZANTINE_NODE", payload: nodeId }),
 
       // Layer 2 actions
       setL2Blocks: (blocks: ChainBlock[]) =>
@@ -354,6 +464,45 @@ export function useSimulationState() {
 
       setRoundNumber: (round: number) =>
         dispatch({ type: "SET_ROUND_NUMBER", payload: round }),
+
+      // Tendermint actions
+      setTendermintRound: (round: number) =>
+        dispatch({ type: "SET_TENDERMINT_ROUND", payload: round }),
+
+      setTendermintHeight: (height: number) =>
+        dispatch({ type: "SET_TENDERMINT_HEIGHT", payload: height }),
+
+      setPrevoteCount: (count: number) =>
+        dispatch({ type: "SET_PREVOTE_COUNT", payload: count }),
+
+      setPrecommitCount: (count: number) =>
+        dispatch({ type: "SET_PRECOMMIT_COUNT", payload: count }),
+
+      // Avalanche actions
+      setAvalancheConfidence: (confidence: number[]) =>
+        dispatch({ type: "SET_AVALANCHE_CONFIDENCE", payload: confidence }),
+
+      setAvalancheQueryRound: (round: number) =>
+        dispatch({ type: "SET_AVALANCHE_QUERY_ROUND", payload: round }),
+
+      setAvalancheDecided: (decided: boolean[]) =>
+        dispatch({ type: "SET_AVALANCHE_DECIDED", payload: decided }),
+
+      setNetworkConfidence: (confidence: number) =>
+        dispatch({ type: "SET_NETWORK_CONFIDENCE", payload: confidence }),
+
+      // Sui/Narwhal actions
+      setDagVertices: (vertices: DagVertex[]) =>
+        dispatch({ type: "SET_DAG_VERTICES", payload: vertices }),
+
+      setDagRound: (round: number) =>
+        dispatch({ type: "SET_DAG_ROUND", payload: round }),
+
+      setSuiCertificates: (count: number) =>
+        dispatch({ type: "SET_SUI_CERTIFICATES", payload: count }),
+
+      setAnchorCommitted: (committed: boolean) =>
+        dispatch({ type: "SET_ANCHOR_COMMITTED", payload: committed }),
 
       reset: () => dispatch({ type: "RESET" }),
     }),

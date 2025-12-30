@@ -86,6 +86,42 @@ export const ko: Translations = {
         "💡 채굴 없음, 에너지 효율적",
       ],
     },
+    tendermint: {
+      name: "Tendermint",
+      chain: "Cosmos Hub",
+      subtitle: "CometBFT (라운드 기반 BFT)",
+      descriptions: [
+        "🔄 Propose → Prevote → Precommit 라운드",
+        "📐 N ≥ 3f+1, 2/3+ 투표 필요",
+        "🔒 라운드 기반 합의 진행",
+        "⚡ 1-7초 블록 확정성",
+        "🌐 100+ Cosmos SDK 체인에서 사용",
+      ],
+    },
+    avalanche: {
+      name: "Avalanche",
+      chain: "Avalanche C-Chain",
+      subtitle: "Snowball (확률적 BFT)",
+      descriptions: [
+        "🎲 반복적 무작위 샘플링 쿼리",
+        "📊 k=20 샘플 크기, α=14 임계값",
+        "❄️ Snowball: 연속 성공 누적",
+        "✅ β=20 연속 성공 시 결정",
+        "⚡ Sub-second 확정성",
+      ],
+    },
+    sui: {
+      name: "Sui (Mysticeti)",
+      chain: "Sui Network",
+      subtitle: "Narwhal-Bullshark (DAG-BFT)",
+      descriptions: [
+        "🔷 DAG 기반 Mempool (Narwhal)",
+        "🦈 Bullshark 합의로 순서 결정",
+        "⚡ 병렬 트랜잭션 처리",
+        "📦 Worker → Primary → DAG 구조",
+        "🚀 고성능 병렬 처리 가능",
+      ],
+    },
   },
   ui: {
     startSimulation: "시뮬레이션 시작",
@@ -126,6 +162,31 @@ export const ko: Translations = {
     agreement: "동의율",
     round: "라운드",
     unlNodes: "UNL 노드",
+    // Tendermint specific
+    height: "높이",
+    prevote: "Prevote",
+    precommit: "Precommit",
+    lockedRound: "잠금 라운드",
+    // Avalanche specific
+    confidence: "신뢰도",
+    queryRound: "쿼리 라운드",
+    sampleSize: "샘플 크기",
+    decided: "결정됨",
+    snowball: "Snowball",
+    // Sui/Narwhal specific
+    dagRound: "DAG 라운드",
+    certificates: "인증서",
+    vertices: "정점",
+    workers: "Workers",
+    primaries: "Primaries",
+    // History link
+    viewHistory: "역사 보기",
+    // Info panel
+    viewDetails: "상세 정보 보기",
+    closeModal: "ESC 또는 바깥 클릭으로 닫기",
+    visitOfficialSite: "공식 사이트 방문",
+    // Simulation preview
+    simulationSteps: "시뮬레이션 단계",
   },
   steps: {
     pow: {
@@ -201,6 +262,27 @@ export const ko: Translations = {
       step3: "동의 구축 중 (80%+ 필요)",
       step4: "합의 달성 - Ledger 검증 완료!",
     },
+    tendermint: {
+      step1: "이번 라운드의 Proposer 선정",
+      step2: "Proposer가 블록 제안 브로드캐스트",
+      step3: "Validator들이 Prevote 투표 (2/3+ 필요)",
+      step4: "Validator들이 Precommit 투표 (2/3+ 필요)",
+      step5: "블록 커밋 완료 - Instant Finality!",
+    },
+    avalanche: {
+      step1: "충돌하는 트랜잭션 감지",
+      step2: "노드들이 k=20 피어를 무작위 샘플링",
+      step3: "쿼리 응답으로 선호도 업데이트",
+      step4: "Snowball: 연속 성공 카운터 증가",
+      step5: "β 임계값 도달 - 결정 확정!",
+    },
+    sui: {
+      step1: "트랜잭션이 Worker에 도착",
+      step2: "Worker가 트랜잭션 배치 → Primary로 전달",
+      step3: "Primary가 DAG 정점 구축",
+      step4: "Bullshark가 커밋된 앵커 정렬",
+      step5: "트랜잭션 병렬 실행 완료!",
+    },
   },
   networkStats: {
     pow: {
@@ -260,5 +342,43 @@ export const ko: Translations = {
       noMining: "채굴 없음, 최소 에너지",
       federatedBft: "연합 비잔틴 합의 (FBA)",
     },
+    tendermint: {
+      cosmosHub: "⚛️ Cosmos Hub",
+      tpsBlockFinality: "Block: 1-7초 | Finality: Instant",
+      roundBased: "라운드 기반 BFT 진행",
+      twoThirdsVoting: "🗳️ 단계별 2/3+ 투표",
+      instantFinality: "Fork 불가능 (결정적)",
+      cosmosEcosystem: "Cosmos 생태계 100+ 체인",
+    },
+    avalanche: {
+      avalancheNetwork: "🔺 Avalanche Network",
+      tpsBlockFinality: "Block: ~1초 | Finality: Sub-second",
+      probabilisticBft: "확률적 BFT (혁신적 접근)",
+      snowballProtocol: "❄️ Snowball 프로토콜",
+      subSecondFinality: "1-2초 내 결정",
+      highThroughput: "1초 미만 Finality 달성",
+    },
+    sui: {
+      suiNetwork: "💧 Sui Network",
+      tpsBlockFinality: "Block: ~0.5초 | Finality: Instant",
+      dagBasedMempool: "DAG 기반 mempool (Narwhal)",
+      parallelExecution: "⚡ 병렬 트랜잭션 실행",
+      narwhalBullshark: "Narwhal + Bullshark 합의",
+      highTps: "병렬 실행 지원",
+    },
+  },
+  history: {
+    title: "합의 알고리즘의 역사",
+    subtitle: "1982년 비잔틴 장군 문제부터 2024년 Layer 2 확장까지",
+    backToLab: "← 실험실로 돌아가기",
+    categories: {
+      academic: "학술 발표",
+      mainnet: "메인넷 출시",
+      upgrade: "업그레이드",
+      layer2: "Layer 2",
+      all: "전체",
+    },
+    viewDetails: "상세 보기",
+    references: "참고 자료",
   },
 };

@@ -1,0 +1,69 @@
+# Consensus Lab - LLMs.txt
+# https://llmstxt.org/
+
+> Consensus Lab is an interactive 3D visualization platform for understanding blockchain consensus mechanisms.
+
+## About
+
+Consensus Lab provides educational visualizations of how different blockchain networks achieve consensus. The platform covers 10+ consensus algorithms from Layer 1 blockchains to Layer 2 scaling solutions.
+
+## Consensus Algorithms Covered
+
+### Layer 1 - Proof of Work
+- **Bitcoin (PoW)**: Nakamoto Consensus using SHA-256 hash puzzles. Miners compete to find valid nonces. Longest chain wins.
+
+### Layer 1 - Proof of Stake
+- **Ethereum (PoS)**: Casper FFG + LMD GHOST. Validators stake 32 ETH. Attestation voting across epochs. Slashing for misbehavior.
+
+### Enterprise Blockchain
+- **RAFT**: Leader-based log replication for Hyperledger Fabric. CFT (Crash Fault Tolerant). Majority consensus.
+- **QBFT/IBFT 2.0**: 3-phase BFT for Hyperledger Besu. PRE-PREPARE → PREPARE → COMMIT. 33% Byzantine tolerance.
+
+### Cosmos Ecosystem
+- **Tendermint**: Round-based BFT. Propose → Prevote → Precommit. Instant finality. 100+ chains use Cosmos SDK.
+
+### Avalanche
+- **Avalanche/Snowball**: Probabilistic BFT via repeated random sampling. k=20 samples, α=14 threshold, β=20 decision.
+
+### Sui Blockchain
+- **Narwhal-Bullshark**: DAG-based mempool with zero-message ordering. 300K+ TPS theoretical. Object-centric model.
+
+### Layer 2 Scaling
+- **Optimistic Rollup**: Fraud proof based. 7-day challenge period. Used by Arbitrum, Optimism, Base.
+- **ZK Rollup**: Validity proof based. Instant finality after proof verification. Used by zkSync, StarkNet.
+
+### Federated Consensus
+- **Ripple RPCA**: UNL-based voting. 80% supermajority. 3-5 second finality. No mining.
+
+## Features
+
+- Interactive 3D visualizations using Three.js/React Three Fiber
+- Step-by-step simulation of consensus processes
+- Educational descriptions in English and Korean
+- Historical timeline from Byzantine Generals Problem (1982) to 2025
+
+## Technical Stack
+
+- Next.js 16 with App Router
+- React Three Fiber for 3D graphics
+- Framer Motion for animations
+- TypeScript
+- Tailwind CSS
+
+## Pages
+
+- `/` - Main visualization page with algorithm selector
+- `/history` - Timeline of consensus algorithm development (1982-2025)
+
+## API
+
+This is a client-side only educational application. No API endpoints.
+
+## Contact
+
+- GitHub: https://github.com/nara020/consensus-lab
+- Author: Jinhyeok Kim
+
+## License
+
+MIT License

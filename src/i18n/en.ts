@@ -86,6 +86,42 @@ export const en: Translations = {
         "💡 No mining, energy efficient",
       ],
     },
+    tendermint: {
+      name: "Tendermint",
+      chain: "Cosmos Hub",
+      subtitle: "CometBFT (Round-based BFT)",
+      descriptions: [
+        "🔄 Propose → Prevote → Precommit rounds",
+        "📐 N ≥ 3f+1, requires 2/3+ votes",
+        "🔒 Round-based consensus progression",
+        "⚡ 1-7 second block finality",
+        "🌐 Used by 100+ Cosmos SDK chains",
+      ],
+    },
+    avalanche: {
+      name: "Avalanche",
+      chain: "Avalanche C-Chain",
+      subtitle: "Snowball (Probabilistic BFT)",
+      descriptions: [
+        "🎲 Repeated random sampling queries",
+        "📊 k=20 sample size, α=14 threshold",
+        "❄️ Snowball: accumulate consecutive successes",
+        "✅ Decide after β=20 consecutive successes",
+        "⚡ Sub-second finality",
+      ],
+    },
+    sui: {
+      name: "Sui (Mysticeti)",
+      chain: "Sui Network",
+      subtitle: "Narwhal-Bullshark (DAG-BFT)",
+      descriptions: [
+        "🔷 DAG-based mempool (Narwhal)",
+        "🦈 Bullshark consensus for ordering",
+        "⚡ Parallel transaction execution",
+        "📦 Worker → Primary → DAG structure",
+        "🚀 High performance parallel execution",
+      ],
+    },
   },
   ui: {
     startSimulation: "Start Simulation",
@@ -126,6 +162,31 @@ export const en: Translations = {
     agreement: "Agreement",
     round: "Round",
     unlNodes: "UNL Nodes",
+    // Tendermint specific
+    height: "Height",
+    prevote: "Prevote",
+    precommit: "Precommit",
+    lockedRound: "Locked Round",
+    // Avalanche specific
+    confidence: "Confidence",
+    queryRound: "Query Round",
+    sampleSize: "Sample Size",
+    decided: "Decided",
+    snowball: "Snowball",
+    // Sui/Narwhal specific
+    dagRound: "DAG Round",
+    certificates: "Certificates",
+    vertices: "Vertices",
+    workers: "Workers",
+    primaries: "Primaries",
+    // History link
+    viewHistory: "View History",
+    // Info panel
+    viewDetails: "View Details",
+    closeModal: "Press ESC or click outside to close",
+    visitOfficialSite: "Visit Official Site",
+    // Simulation preview
+    simulationSteps: "What You'll See",
   },
   steps: {
     pow: {
@@ -201,6 +262,27 @@ export const en: Translations = {
       step3: "Building agreement (need 80%+)",
       step4: "Consensus achieved - Ledger validated!",
     },
+    tendermint: {
+      step1: "Proposer selected for this round",
+      step2: "Proposer broadcasts block proposal",
+      step3: "Validators cast Prevote (2/3+ needed)",
+      step4: "Validators cast Precommit (2/3+ needed)",
+      step5: "Block committed - Instant finality!",
+    },
+    avalanche: {
+      step1: "Conflicting transactions detected",
+      step2: "Nodes randomly sample k=20 peers",
+      step3: "Query responses update preferences",
+      step4: "Snowball: consecutive success counter grows",
+      step5: "β threshold reached - Decision finalized!",
+    },
+    sui: {
+      step1: "Transactions arrive at Workers",
+      step2: "Workers batch transactions → Primaries",
+      step3: "Primaries build DAG vertices",
+      step4: "Bullshark orders committed anchors",
+      step5: "Transactions executed in parallel!",
+    },
   },
   networkStats: {
     pow: {
@@ -260,5 +342,43 @@ export const en: Translations = {
       noMining: "No mining, minimal energy",
       federatedBft: "Federated Byzantine Agreement (FBA)",
     },
+    tendermint: {
+      cosmosHub: "⚛️ Cosmos Hub",
+      tpsBlockFinality: "Block: 1-7s | Finality: Instant",
+      roundBased: "Round-based BFT progression",
+      twoThirdsVoting: "🗳️ 2/3+ votes per phase",
+      instantFinality: "No forks possible (deterministic)",
+      cosmosEcosystem: "100+ chains in Cosmos ecosystem",
+    },
+    avalanche: {
+      avalancheNetwork: "🔺 Avalanche Network",
+      tpsBlockFinality: "Block: ~1s | Finality: Sub-second",
+      probabilisticBft: "Probabilistic BFT (novel approach)",
+      snowballProtocol: "❄️ Snowball protocol",
+      subSecondFinality: "Decisions in 1-2 seconds",
+      highThroughput: "Sub-second finality achieved",
+    },
+    sui: {
+      suiNetwork: "💧 Sui Network",
+      tpsBlockFinality: "Block: ~0.5s | Finality: Instant",
+      dagBasedMempool: "DAG-based mempool (Narwhal)",
+      parallelExecution: "⚡ Parallel transaction execution",
+      narwhalBullshark: "Narwhal + Bullshark consensus",
+      highTps: "Parallel execution enabled",
+    },
+  },
+  history: {
+    title: "History of Consensus Algorithms",
+    subtitle: "From Byzantine Generals Problem (1982) to Layer 2 Scaling (2024)",
+    backToLab: "← Back to Lab",
+    categories: {
+      academic: "Academic",
+      mainnet: "Mainnet Launch",
+      upgrade: "Upgrade",
+      layer2: "Layer 2",
+      all: "All",
+    },
+    viewDetails: "View Details",
+    references: "References",
   },
 };

@@ -18,6 +18,7 @@ interface QbftSceneProps {
   prepareCount: number;
   commitCount: number;
   blocks: ChainBlock[];
+  byzantineNode: number;
 }
 
 // ==========================================
@@ -30,6 +31,7 @@ function QbftSceneComponent({
   prepareCount,
   commitCount,
   blocks,
+  byzantineNode,
 }: QbftSceneProps) {
   const { camera } = useThree();
   const { t } = useI18n();
@@ -69,7 +71,26 @@ function QbftSceneComponent({
 
       {/* Validators in a circle */}
       {validators.map((v) => (
-        <Node key={v.id} validator={v} />
+        <group key={v.id}>
+          <Node validator={v} />
+          {/* Byzantine indicator */}
+          {byzantineNode === v.id && (
+            <>
+              <Text
+                position={[v.position.x, v.position.y + 0.7, 0]}
+                fontSize={0.14}
+                color="#ef4444"
+                anchorX="center"
+              >
+                ⚠️ BYZANTINE
+              </Text>
+              <mesh position={[v.position.x, v.position.y, -0.1]}>
+                <ringGeometry args={[0.4, 0.5, 32]} />
+                <meshBasicMaterial color="#ef4444" transparent opacity={0.5} />
+              </mesh>
+            </>
+          )}
+        </group>
       ))}
 
       {/* Current proposed block in center */}

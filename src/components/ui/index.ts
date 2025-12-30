@@ -4,3 +4,4 @@ export { StepIndicator } from "./StepIndicator";
 export { StartButton } from "./StartButton";
 export { ReplayButton } from "./ReplayButton";
 export { LanguageToggle } from "./LanguageToggle";
+export { SimulationControls } from "./SimulationControls";

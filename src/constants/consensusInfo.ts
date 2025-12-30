@@ -11,6 +11,9 @@ export const MODE_CATEGORIES: Record<ConsensusMode, ConsensusCategory> = {
   optimistic: "layer2",
   zk: "layer2",
   ripple: "alternative",
+  tendermint: "alternative",
+  avalanche: "alternative",
+  sui: "alternative",
 };
 
 export const CATEGORY_INFO: Record<ConsensusCategory, { name: string; color: string }> = {
@@ -127,6 +130,48 @@ export const CONSENSUS_INFO: Record<ConsensusMode, ConsensusInfo> = {
       "🏦 은행/결제 네트워크 최적화",
     ],
   },
+  tendermint: {
+    name: "Tendermint",
+    chain: "Cosmos Hub",
+    icon: "⚛️",
+    subtitle: "CometBFT (Round-based BFT)",
+    color: "#2e3148",
+    description: [
+      "🔄 Propose → Prevote → Precommit",
+      "📐 N ≥ 3f+1, 2/3+ 투표 필요",
+      "🔒 Round-based 합의 진행",
+      "⚡ 1-7초 Block Finality",
+      "🌐 Cosmos SDK 100+ 체인 사용",
+    ],
+  },
+  avalanche: {
+    name: "Avalanche",
+    chain: "Avalanche C-Chain",
+    icon: "🔺",
+    subtitle: "Snowball (Probabilistic BFT)",
+    color: "#e84142",
+    description: [
+      "🎲 Random Sampling 반복 쿼리",
+      "📊 k=20 노드 샘플, α=14 임계값",
+      "❄️ Snowball: 연속 성공 누적",
+      "✅ β=20 연속 성공 시 결정",
+      "⚡ Sub-second Finality",
+    ],
+  },
+  sui: {
+    name: "Sui (Mysticeti)",
+    chain: "Sui Network",
+    icon: "💧",
+    subtitle: "Narwhal-Bullshark (DAG-BFT)",
+    color: "#6fbcf0",
+    description: [
+      "🔷 DAG 기반 Mempool (Narwhal)",
+      "🦈 Bullshark 합의로 순서 결정",
+      "⚡ Parallel Transaction 처리",
+      "📦 Worker → Primary → DAG",
+      "🚀 고성능 병렬 처리 가능",
+    ],
+  },
 };
 
 // ==========================================
@@ -156,6 +201,17 @@ export const BLOCK_STATUS_COLORS: Record<string, string> = {
   challenged: "#ef4444",
   proven: "#8b5cf6",
   validated: "#22c55e",
+  // Tendermint statuses
+  prevoted: "#6366f1",
+  precommitted: "#8b5cf6",
+  // Avalanche statuses
+  queried: "#fbbf24",
+  preferred: "#f97316",
+  accepted: "#22c55e",
+  // Sui/Narwhal statuses
+  certified: "#6fbcf0",
+  ordered: "#3b82f6",
+  executed: "#22c55e",
 };
 
 // ==========================================
@@ -171,6 +227,14 @@ export const ROLE_COLORS: Record<string, string> = {
   sequencer: "#ff0420",
   prover: "#8b5cf6",
   unlNode: "#23292f",
+  // Tendermint
+  tendermintValidator: "#2e3148",
+  // Avalanche
+  avalancheNode: "#e84142",
+  // Sui/Narwhal
+  worker: "#6fbcf0",
+  primary: "#3b82f6",
+  dagNode: "#6fbcf0",
 };
 
 // ==========================================
@@ -181,13 +245,21 @@ export const VOTE_COLORS: Record<string, string | null> = {
   prepare: "#3b82f6",
   commit: "#22c55e",
   attest: "#8b5cf6",
+  // Tendermint
+  prevote: "#6366f1",
+  precommit: "#8b5cf6",
+  // Avalanche
+  query: "#fbbf24",
+  response: "#22c55e",
+  // Sui
+  certify: "#6fbcf0",
 };
 
 // ==========================================
 // SIMULATION CONSTANTS
 // ==========================================
-export const SIMULATION_INTERVAL_MS = 350;
-export const QBFT_INTERVAL_MS = 400;
+export const SIMULATION_INTERVAL_MS = 550;  // Slower for better readability
+export const QBFT_INTERVAL_MS = 600;
 export const COMPLETE_DELAY_MS = 2500;
 
 // ==========================================
