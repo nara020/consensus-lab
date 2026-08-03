@@ -158,7 +158,7 @@ export default function ConsensusVisualization() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-50">
+    <div className="fixed inset-0 bg-black z-50 overflow-hidden">
       {/* 3D Canvas */}
       <Canvas
         camera={{ position: [0, 0, 12], fov: 50 }}
