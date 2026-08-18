@@ -14,10 +14,9 @@
 
 <br />
 
-<!-- Add your demo GIF here -->
-![Consensus Lab Demo](./public/demo.gif)
+**▶ [Try it live — consensus-lab.vercel.app](https://consensus-lab.vercel.app)**
 
-*Learn how Bitcoin, Ethereum, and enterprise blockchains achieve consensus through beautiful real-time 3D simulations*
+*Learn how Bitcoin, Ethereum, and enterprise blockchains achieve consensus through beautiful real-time 3D simulations — 10 mechanisms: PoW, PoS, Raft, QBFT/IBFT 2.0, Tendermint, Avalanche, Ripple, Sui, Optimistic Rollup, and ZK Rollup*
 
 </div>
 
@@ -56,17 +55,15 @@
 
 ## 🎬 Demo
 
-<!-- Add screenshots/GIFs for each consensus mechanism -->
+**[Open the live demo →](https://consensus-lab.vercel.app)** (no install — runs in any WebGL-capable browser)
 
-| Proof of Work (Bitcoin) | Proof of Stake (Ethereum) |
-|:-----------------------:|:-------------------------:|
-| ![PoW Demo](./public/screenshots/pow.gif) | ![PoS Demo](./public/screenshots/pos.gif) |
-| Mining race across regions, fork resolution, orphan blocks | Validator selection, attestations, finality |
-
-| RAFT (Hyperledger Fabric) | IBFT 2.0 (Hyperledger Besu) |
-|:-------------------------:|:---------------------------:|
-| ![RAFT Demo](./public/screenshots/raft.gif) | ![IBFT Demo](./public/screenshots/ibft.gif) |
-| Leader election, log replication, instant commit | 3-phase BFT consensus, Byzantine tolerance |
+| Mechanism | What you'll see |
+|:---|:---|
+| Proof of Work (Bitcoin) | Mining race across regions, fork resolution, orphan blocks |
+| Proof of Stake (Ethereum) | Validator selection, attestations, finality |
+| Raft (Hyperledger Fabric) | Leader election, log replication, instant commit |
+| QBFT / IBFT 2.0 (Hyperledger Besu) | 3-phase BFT consensus, Byzantine tolerance |
+| Tendermint · Avalanche · Ripple · Sui · Optimistic Rollup · ZK Rollup | Six more mechanisms, each modeled as its own state machine |
 
 ---
 
@@ -389,11 +386,11 @@ Consensus Process:
 
 ## 🗺 Roadmap
 
-- [x] Core visualization for 4 consensus mechanisms
+- [x] Core visualization for 10 consensus mechanisms (PoW, PoS, Raft, QBFT/IBFT 2.0, Tendermint, Avalanche, Ripple, Sui, Optimistic Rollup, ZK Rollup)
 - [x] Bilingual support (EN/KO)
 - [x] Responsive design
 - [x] Audio feedback
-- [ ] Add more consensus mechanisms (Tendermint, HotStuff)
+- [ ] Add more consensus mechanisms (HotStuff, Narwhal/Bullshark)
 - [ ] Interactive parameter adjustment
 - [ ] Educational quiz mode
 - [ ] VR/AR support
@@ -434,7 +431,7 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 
 [![GitHub](https://img.shields.io/badge/GitHub-nara020-black?style=flat-square&logo=github)](https://github.com/nara020)
 [![Portfolio](https://img.shields.io/badge/Portfolio-jinhyeok.dev-blue?style=flat-square&logo=vercel)](https://jinhyeok.dev)
-[![Email](https://img.shields.io/badge/Email-contact-red?style=flat-square&logo=gmail)](mailto:your-email@example.com)
+[![Email](https://img.shields.io/badge/Email-contact-red?style=flat-square&logo=gmail)](mailto:nara020@naver.com)
 
 ---
 
